@@ -1,0 +1,54 @@
+<h1>File Upload</h1>
+<%= start_form_tag :action => 'uploadFile', :multipart => true %>
+<p><label for="upload_file">Select File</label> : 
+<%= file_field 'upload', 'datafile' %></p>
+<%= submit_tag "Upload" %>
+<%= end_form_tag %>
+
+<% form_for(@uploadFile, :html => {:multipart => true}) do |f| %>
+User id: <br /><%= f.text_field :user_id %>
+Select file: <br /><%= f.file_field :filename%>
+<%= f.submit 'Create' %>
+<% end %>
+
+
+<%= form_tag({:action => :uploadFile}, :multipart => true) do %>
+  <%= file_field_tag 'picture' %>
+<% end %>
+
+<% end %><%= form_tag({:action => :uploadFile}, :multipart => true) do |f| %>
+
+<%end%>
+
+a. Form
+
+
+<%= form_for :file_upload, :html => {:multipart => true} do |f| %>
+  <%= f.file_field :my_file %>
+  <%= f.submit "Upload" %>
+<% end %>
+
+b. controller
+
+def file_upload  
+  require 'fileutils'
+  tmp = params[:file_upload][:my_file].tempfile
+  file = File.join("public", params[:file_upload][:my_file].original_filename)
+  FileUtils.cp tmp.path, file
+  ... # YOUR PARSING JOB
+  FileUtils.rm file
+end
+
+def file_upload
+    tmp = params[:file_upload][:my_file].tempfile
+    require 'ftools'
+    file = File.join("public", params[:file_upload][:my_file].original_filename)
+    FileUtils.cp tmp.path, file
+end
+
+But you can parse just tempfile, so you don't need to copy it to public dir and it will automatically deleted
+
+<%= form_tag({:action => 'index'}, :multipart => true) do %>
+  <%= file_field_tag 'picture' %>
+  <%= submit_tag "Process" %>
+<% end %>

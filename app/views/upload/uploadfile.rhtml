@@ -1,0 +1,6 @@
+<h1>CTS File Upload</h1>
+  
+<%= form_tag({:action => 'create'}, :multipart => true) do %>
+  <%= file_field_tag 'cts_file' %></p>
+  <%= submit_tag "Process" %>
+<% end %>

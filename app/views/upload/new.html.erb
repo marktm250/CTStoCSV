@@ -1,0 +1,17 @@
+<h1>CTS to CSV Conversion</h1>
+
+<%= form_tag({:action => 'create'}, :multipart => true) do %>
+  <%= file_field_tag 'cts_file' %></p>
+  <%= submit_tag "Process" %>
+  
+  <p><label>Processing file :  <%= params[:cts_file].original_filename %> </label>
+  
+  <p><label>Maximum temperature :  <%= session[:maxtemp] %> in <%= session[:maxpart] %></label>
+  
+  <p><label>Created file :  <%= params[:cts_file].original_filename.sub(/.cts/,".csv") %> </label>
+  
+  <p><%= link_to "Download CSV", params[:cts_file].original_filename.sub(/.cts/,".csv") %>
+  
+<% end %>
+
+
